@@ -3,7 +3,9 @@
  */
 public class Main {
     public static void main(String[] args) {
-
-        AnimalService.createAnimal();
+        while(true) {
+            Menu.printMenu();
+            Menu.runUserChoice();
+        }
     }
 }

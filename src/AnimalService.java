@@ -3,6 +3,7 @@
  */
 public class AnimalService {
     //create animal in DB with data collected from user input
+
     public static void createAnimal() {
 
         Animal animal = new Animal();
@@ -29,11 +30,16 @@ public class AnimalService {
                 stopLoop2 = true;
             }
         }
-
         JDBCAnimalDAO jdbcAnimalDAO = new JDBCAnimalDAO();
         jdbcAnimalDAO.getConnection();
         jdbcAnimalDAO.insert(animal); //
-        jdbcAnimalDAO.select(); //show animals after inserting one
+        jdbcAnimalDAO.closeConnection();
+    }
+
+    public static void listAnimals() {
+        JDBCAnimalDAO jdbcAnimalDAO = new JDBCAnimalDAO();
+        jdbcAnimalDAO.getConnection();
+        jdbcAnimalDAO.select();
         jdbcAnimalDAO.closeConnection();
     }
 

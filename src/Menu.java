@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * Created by carlos.ochoa on 4/27/2016.
  */
@@ -19,6 +21,40 @@ public class Menu {
                 .append("--4. Find animal---------------------------------\n")
                 .append("----Type e, exit, q, or quit to leave program----\n");
         System.out.println(zooMenu);
+    }
+
+    public static void runUserChoice() {
+        Scanner scanner = new Scanner(System.in);
+        String userChoice = scanner.nextLine();
+
+        switch (userChoice) {
+            case "1":
+                AnimalService.createAnimal();
+                break;
+
+            case "2":
+                AnimalService.listAnimals();
+                break;
+
+            case "3":
+                break;
+
+            case "4":
+                break;
+
+            case "9":
+                break;
+
+            case "e":
+            case "exit":
+            case "q":
+            case "quit":
+                System.exit(0);
+                break;
+
+            default:
+                System.out.println("Please enter a valid option");
+        }
     }
 
 }
