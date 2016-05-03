@@ -53,5 +53,19 @@ public class Validation {
         }
         return animalTypeIsValid;
     }
+//
+//    public static boolean validateAnimalHealthStatus(int animalHealthStatusCode) {
+//        //run validation on customer input
+//        //return true if health status code is valid
+//        Scanner scanner = new Scanner(System.in);
+//        animalHealthStatusCode = scanner.nextInt();
+//        boolean animalHealthStatusIsValid = false;
+//
+//        if (animalHealthStatusCode == 1 || animalHealthStatusCode == 2 || animalHealthStatusCode == 3 || animalHealthStatusCode == 4) {
+//            animalHealthStatusIsValid = true;
+//        }
+//
+//        return animalHealthStatusIsValid;
+//    }
 
 }

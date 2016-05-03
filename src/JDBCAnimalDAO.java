@@ -21,22 +21,21 @@ public class JDBCAnimalDAO {
             if (connection == null)
                 connection = DriverManager.getConnection(MY_SQL_INFO);
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return connection;
     }
 
     public void insert(Animal animal) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO zoo.animal (name, age, type, gender) VALUES (?,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO zoo.animal (name, age, type, gender, health) VALUES (?,?,?,?,?)");
             preparedStatement.setString(1, animal.getName());
             preparedStatement.setString(2, String.valueOf(animal.getAge()));
             preparedStatement.setString(3, animal.getType());
             preparedStatement.setString(4, animal.getGender());
+            preparedStatement.setString(5, String.valueOf(animal.getHealth()));
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -59,6 +58,7 @@ public class JDBCAnimalDAO {
                 animal.setAge(resultSet.getInt("age"));
                 animal.setType(resultSet.getString("type"));
                 animal.setGender(resultSet.getString("gender"));
+                animal.setHealth(AnimalHealthStatus.getAnimalHealthStatusByStatus(resultSet.getString("health"))); //TODO get health from DB in a better way?
 
                 animalList.add(animal);
             }

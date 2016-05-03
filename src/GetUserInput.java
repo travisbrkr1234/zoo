@@ -38,4 +38,21 @@ public class GetUserInput {
         return animalAgeInput;
     }
 
+    public static int getAnimalHealthStatus() {
+
+        int animalHealthStatusCode = 0;
+        boolean stop = false;
+
+        while (!stop) {
+            Scanner scanner = new Scanner(System.in);
+            try {
+                animalHealthStatusCode = scanner.nextInt();
+                stop = true;
+            } catch (InputMismatchException e) {
+                scanner.hasNextInt();
+                System.out.println("Please enter a valid animal health status of 1, 2, 3, or 4");
+            }
+        }
+        return animalHealthStatusCode;
+    }
 }

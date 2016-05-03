@@ -59,4 +59,12 @@ public class Menu {
         }
     }
 
+    public static void printHealthStatusMenu() {
+        System.out.println("Please enter a health status: ");
+        System.out.println("1 - Good health\n" +
+                "2 - Mediocre health\n" +
+                "3 - Bad health\n" +
+                "4 - Pregnant");
+    }
+
 }

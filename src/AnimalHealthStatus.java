@@ -46,4 +46,25 @@ public enum AnimalHealthStatus {
         return animalHealthStatus;
     }
 
+    public static AnimalHealthStatus getAnimalHealthStatusByStatus(String healthStatus) {
+        AnimalHealthStatus animalHealthStatus;
+        switch (healthStatus) {
+            case "GOOD_HEALTH":
+                animalHealthStatus =  AnimalHealthStatus.GOOD_HEALTH;
+                break;
+            case "MEDIOCRE_HEALTH":
+                animalHealthStatus = AnimalHealthStatus.MEDIOCRE_HEALTH;
+                break;
+            case "BAD_HEALTH":
+                animalHealthStatus = AnimalHealthStatus.BAD_HEALTH;
+                break;
+            case "PREGNANT":
+                animalHealthStatus = AnimalHealthStatus.PREGNANT;
+                break;
+            default:
+                animalHealthStatus = null;
+        }
+        return animalHealthStatus;
+    }
+
 }

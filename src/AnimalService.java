@@ -8,10 +8,12 @@ public class AnimalService {
 
         Animal animal = new Animal();
 
+        //TODO condense these where possible
         boolean stopNameLoop = false;
         boolean stopAgeLoop = false;
         boolean stopTypeLoop= false;
         boolean stopGenderLoop = false;
+        boolean stopHealthStatusLoop = false;
 
         while (!stopNameLoop) {
             System.out.println("Please enter an animal name ex... 'Larry'");
@@ -58,6 +60,19 @@ public class AnimalService {
             }
         }
 
+        while (!stopHealthStatusLoop) {
+            Menu.printHealthStatusMenu();
+            int animalHealthStatusCode = GetUserInput.getAnimalHealthStatus();
+
+            //TODO clean this up
+            //Since enum has its own "sort of" validation, I skipped implementing an additional validator
+            if (AnimalHealthStatus.animalHealthStatusExists(animalHealthStatusCode)) {
+                animal.setHealth(AnimalHealthStatus.getAnimalHealthStatusByStatusCode(animalHealthStatusCode));
+                stopHealthStatusLoop = true;
+            }
+        }
+
+        System.out.println("Saving animal to database");
         JDBCAnimalDAO jdbcAnimalDAO = new JDBCAnimalDAO();
         jdbcAnimalDAO.getConnection();
         jdbcAnimalDAO.insert(animal); //
