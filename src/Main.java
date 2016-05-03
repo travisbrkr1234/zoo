@@ -4,8 +4,8 @@
 public class Main {
     public static void main(String[] args) {
         while(true) {
-            Menu.printMenu();
-            Menu.runUserChoice();
+            Menu.printMenu(); //Print menu to console for user
+            Menu.runUserChoice(); //Get users choice and invoke corresponding function
         }
     }
 }

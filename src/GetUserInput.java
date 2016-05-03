@@ -4,16 +4,24 @@ import java.util.Scanner;
 /**
  * Created by carlos.ochoa on 4/27/2016.
  */
+// Gets the next string provided by the user //
 public class GetUserInput {
-    //get user input for animal name
-    public static String getAnimalName() {
+    public static String getUserInputString() {
+
         Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
+        String userInput = "";
+        try {
+            userInput = scanner.nextLine();
+        } catch (InputMismatchException e) {
+            e.printStackTrace();
+        }
         return userInput;
     }
 
+    // Gets the next integer provided by the user //
+    // The reason this is separate, is due to the exception being thrown if the user does not provide an int
     public static int getAnimalAge() {
-        //get user input for animal age
+
         int animalAgeInput = 0;
         boolean stop = false;
 
@@ -24,6 +32,7 @@ public class GetUserInput {
                 stop = true;
             } catch (InputMismatchException e) {
                 scanner.hasNextInt();
+                System.out.println("Please enter a valid animal age");
             }
         }
         return animalAgeInput;

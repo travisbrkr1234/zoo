@@ -7,6 +7,7 @@ public class Menu {
 
     public static void printMenu() {
 
+        // Print a menu of choices to the user
         final StringBuilder zooMenu = new StringBuilder();
 
         zooMenu.append("-------------------------------------------------\n")
@@ -23,6 +24,7 @@ public class Menu {
         System.out.println(zooMenu);
     }
 
+    // Get the choice from the user and invoke the corresponding method
     public static void runUserChoice() {
         Scanner scanner = new Scanner(System.in);
         String userChoice = scanner.nextLine();

@@ -32,9 +32,11 @@ public class JDBCAnimalDAO {
 
     public void insert(Animal animal) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO zoo.animal (name, age) VALUES (?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO zoo.animal (name, age, type, gender) VALUES (?,?,?,?)");
             preparedStatement.setString(1, animal.getName());
             preparedStatement.setString(2, String.valueOf(animal.getAge()));
+            preparedStatement.setString(3, animal.getType());
+            preparedStatement.setString(4, animal.getGender());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -55,6 +57,8 @@ public class JDBCAnimalDAO {
                 animal.setAnimalNumber(resultSet.getInt("id"));
                 animal.setName(resultSet.getString("name"));
                 animal.setAge(resultSet.getInt("age"));
+                animal.setType(resultSet.getString("type"));
+                animal.setGender(resultSet.getString("gender"));
 
                 animalList.add(animal);
             }

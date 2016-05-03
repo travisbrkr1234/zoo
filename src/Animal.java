@@ -95,7 +95,7 @@ public class Animal {
 
     @Override
     public String toString() {
-        return String.valueOf(new StringBuffer("Animal Number: ")
+        return String.valueOf(new StringBuffer("\nAnimal Number: ")
                 .append(this.animalNumber)
                 .append(" | ")
                 .append("Name: ")

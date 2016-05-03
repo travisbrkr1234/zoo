@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,11 +14,11 @@ public class Validation {
         final String regexNamePattern = "\\b[a-zA-Z]+\\b";
         Pattern namePattern = Pattern.compile(regexNamePattern);
 
-            Matcher matcher = namePattern.matcher(animalName);
+        Matcher matcher = namePattern.matcher(animalName);
 
-            if (matcher.find()) {
-                animalNameIsValid = true;
-            }
+        if (matcher.find()) {
+            animalNameIsValid = true;
+        }
         return animalNameIsValid;
     }
 
@@ -31,6 +32,26 @@ public class Validation {
             animalAgeIsValid = true;
         }
         return animalAgeIsValid;
+    }
+
+    public static boolean validateAnimalGender(String animalGender) {
+        boolean animalGenderIsValid = false;
+
+        if (animalGender.equals("m") || animalGender.equals("M") || animalGender.equals("f") || animalGender.equals("F")) {
+            animalGenderIsValid = true;
+        }
+        return animalGenderIsValid;
+    }
+
+    public static boolean validateAnimalType(String animalType) {
+        boolean animalTypeIsValid = false;
+        final String regexPattern = "^[a-zA-z]+(-+[a-zA-Z]+)?$";
+        final Pattern pattern = Pattern.compile(regexPattern);
+
+        if (pattern.matcher(animalType).matches()) {
+            animalTypeIsValid = true;
+        }
+        return animalTypeIsValid;
     }
 
 }
