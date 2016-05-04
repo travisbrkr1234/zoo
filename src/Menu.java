@@ -35,7 +35,7 @@ public class Menu {
                 break;
 
             case "2":
-                AnimalService.listAnimals();
+                AnimalService.printAnimalsToConsole();
                 break;
 
             case "3":

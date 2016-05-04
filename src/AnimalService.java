@@ -79,7 +79,7 @@ public class AnimalService {
         jdbcAnimalDAO.closeConnection();
     }
 
-    public static void listAnimals() {
+    public static void printAnimalsToConsole() {
         JDBCAnimalDAO jdbcAnimalDAO = new JDBCAnimalDAO();
         jdbcAnimalDAO.getConnection();
         jdbcAnimalDAO.select();
@@ -88,13 +88,18 @@ public class AnimalService {
 
     public static void removeAnimal() {
         JDBCAnimalDAO jdbcAnimalDAO = new JDBCAnimalDAO();
-        listAnimals(); //TODO better way to do this?
-        System.out.println("Please enter the id of an animal that you would like to remove");
         jdbcAnimalDAO.getConnection();
-        int animalId = GetUserInput.getAnimalAge();
-        jdbcAnimalDAO.delete(animalId);
-        jdbcAnimalDAO.closeConnection();
-        System.out.println("Animal id: " + animalId + " removed");
+        boolean animalsExist = jdbcAnimalDAO.checkForAnimals();
+
+        if (!animalsExist) {
+            System.out.println("Please enter the id of an animal that you would like to remove");
+            int animalId = GetUserInput.getAnimalAge();
+            jdbcAnimalDAO.delete(animalId);
+            jdbcAnimalDAO.closeConnection();
+            System.out.println("Animal id: " + animalId + " removed");
+        } else  {
+            System.out.println("There are no animals to remove");
+        }
     }
 
 }

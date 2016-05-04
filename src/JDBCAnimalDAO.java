@@ -85,6 +85,24 @@ public class JDBCAnimalDAO {
         }
     }
 
+    public boolean checkForAnimals() {
+        JDBCAnimalDAO jdbcAnimalDAO = new JDBCAnimalDAO();
+        jdbcAnimalDAO.getConnection();
+        boolean animalsExist = false;
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM zoo.animal");
+            if (!resultSet.isBeforeFirst()) {
+                animalsExist = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return animalsExist;
+    }
+
     public void closeConnection() {
         try {
             if (connection != null) {
