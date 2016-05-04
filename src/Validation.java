@@ -68,4 +68,13 @@ public class Validation {
 //        return animalHealthStatusIsValid;
 //    }
 
+    public static boolean validateOnLoanInput(String onLoanInput) {
+        boolean onLoanInputValid = false;
+
+        if (onLoanInput.equalsIgnoreCase("yes") || onLoanInput.equalsIgnoreCase("no")) {
+            onLoanInputValid = true;
+        }
+        return onLoanInputValid;
+    }
+
 }

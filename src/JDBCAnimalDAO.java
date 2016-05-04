@@ -30,13 +30,15 @@ public class JDBCAnimalDAO {
 
     public void insert(Animal animal) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO zoo.animal (name, age, type, gender, health, enclosure) VALUES (?,?,?,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO zoo.animal (name, age, type, gender, health, enclosure, on_loan, loan_location) VALUES (?,?,?,?,?,?,?,?)");
             preparedStatement.setString(1, animal.getName());
             preparedStatement.setString(2, String.valueOf(animal.getAge()));
             preparedStatement.setString(3, animal.getType());
             preparedStatement.setString(4, animal.getGender());
             preparedStatement.setString(5, String.valueOf(animal.getHealth()));
             preparedStatement.setString(6, animal.getEnclosure());
+            preparedStatement.setBoolean(7, animal.isOnLoan());
+            preparedStatement.setString(8, animal.getLoanLocation());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -59,8 +61,10 @@ public class JDBCAnimalDAO {
                 animal.setAge(resultSet.getInt("age"));
                 animal.setType(resultSet.getString("type"));
                 animal.setGender(resultSet.getString("gender"));
-                animal.setHealth(AnimalHealthStatus.getAnimalHealthStatusByStatus(resultSet.getString("health"))); //TODO get health from DB in a better way?
+                animal.setHealth(AnimalHealthStatus.getAnimalHealthStatusByStatus(resultSet.getString("health"))); //TODO get health from DB in a better way? reverse enum lookup?
                 animal.setEnclosure(resultSet.getString("enclosure"));
+                animal.setOnLoan(resultSet.getBoolean("on_loan"));
+                animal.setLoanLocation(resultSet.getString("loan_location"));
 
                 animalList.add(animal);
             }

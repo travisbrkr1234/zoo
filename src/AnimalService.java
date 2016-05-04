@@ -53,6 +53,7 @@ public class AnimalService {
             System.out.println("Please enter the animals gender, m or f");
             String animalGender = GetUserInput.getUserInputString();
             boolean validAnimalGender = Validation.validateAnimalGender(animalGender);
+            //TODO validation in validation class, not here
             if (validAnimalGender) {
                 if (animalGender.equals("m") || animalGender.equals("M")) {
                     animal.setGender("Male");
@@ -84,6 +85,32 @@ public class AnimalService {
             if (enclosureUserInput.equalsIgnoreCase("pen") || enclosureUserInput.equalsIgnoreCase("cage") || enclosureUserInput.equalsIgnoreCase("window") || enclosureUserInput.equalsIgnoreCase("other") ) {
                 animal.setEnclosure(enclosureUserInput);
                 stopEnclosureLoop = true;
+            }
+        }
+
+        while (!stopOnLoanLoop) {
+            System.out.println("Is the animal on loan to another zoo? Please enter 'yes' or 'no'");
+            String onLoanInput = GetUserInput.getUserInputString();
+            boolean onLoanInputValid = Validation.validateOnLoanInput(onLoanInput);
+            //TODO change the gender validation logic as seen here?
+            if (onLoanInputValid) {
+                if (onLoanInput.equalsIgnoreCase("yes")) {
+                    animal.setOnLoan(true);
+                }
+                if (onLoanInput.equalsIgnoreCase("no")) {
+                    animal.setOnLoan(false);
+                }
+                stopOnLoanLoop = true;
+            }
+        }
+
+        if (animal.isOnLoan()) {
+            while (!stopLoanLocationLoop) {
+                //TODO What type of validation needed here? if any?
+                System.out.println("Where is the animal on loan to?");
+                String loanLocation = GetUserInput.getUserInputString();
+                animal.setLoanLocation(loanLocation);
+                stopLoanLocationLoop = true;
             }
         }
 
