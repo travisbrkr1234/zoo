@@ -72,6 +72,19 @@ public class JDBCAnimalDAO {
         return animalList;
     }
 
+    public void delete(int animalId) {
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM zoo.animal WHERE id = ?");
+            preparedStatement.setInt(1, animalId);
+            preparedStatement.execute();
+            preparedStatement.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void closeConnection() {
         try {
             if (connection != null) {

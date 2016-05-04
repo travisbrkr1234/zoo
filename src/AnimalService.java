@@ -8,7 +8,7 @@ public class AnimalService {
 
         Animal animal = new Animal();
 
-        //TODO condense these where possible
+        //TODO condense these loops where possible
         boolean stopNameLoop = false;
         boolean stopAgeLoop = false;
         boolean stopTypeLoop= false;
@@ -84,6 +84,17 @@ public class AnimalService {
         jdbcAnimalDAO.getConnection();
         jdbcAnimalDAO.select();
         jdbcAnimalDAO.closeConnection();
+    }
+
+    public static void removeAnimal() {
+        JDBCAnimalDAO jdbcAnimalDAO = new JDBCAnimalDAO();
+        listAnimals(); //TODO better way to do this?
+        System.out.println("Please enter the id of an animal that you would like to remove");
+        jdbcAnimalDAO.getConnection();
+        int animalId = GetUserInput.getAnimalAge();
+        jdbcAnimalDAO.delete(animalId);
+        jdbcAnimalDAO.closeConnection();
+        System.out.println("Animal id: " + animalId + " removed");
     }
 
 }
