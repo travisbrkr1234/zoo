@@ -10,10 +10,14 @@ public class AnimalService {
 
         //TODO condense these loops where possible
         boolean stopNameLoop = false;
+//TODO        boolean stopOwnerNameLoop = false;
         boolean stopAgeLoop = false;
         boolean stopTypeLoop= false;
         boolean stopGenderLoop = false;
         boolean stopHealthStatusLoop = false;
+        boolean stopEnclosureLoop = false;
+        boolean stopOnLoanLoop = false;
+        boolean stopLoanLocationLoop = false;
 
         while (!stopNameLoop) {
             System.out.println("Please enter an animal name ex... 'Larry'");
@@ -69,6 +73,17 @@ public class AnimalService {
             if (AnimalHealthStatus.animalHealthStatusExists(animalHealthStatusCode)) {
                 animal.setHealth(AnimalHealthStatus.getAnimalHealthStatusByStatusCode(animalHealthStatusCode));
                 stopHealthStatusLoop = true;
+            }
+        }
+
+        while (!stopEnclosureLoop) {
+            System.out.println("Please enter the type of enclosure the animal is in: \n examples:\n +" +
+                    "pen \n cage \n window \n other");
+
+            String enclosureUserInput = GetUserInput.getUserInputString();
+            if (enclosureUserInput.equalsIgnoreCase("pen") || enclosureUserInput.equalsIgnoreCase("cage") || enclosureUserInput.equalsIgnoreCase("window") || enclosureUserInput.equalsIgnoreCase("other") ) {
+                animal.setEnclosure(enclosureUserInput);
+                stopEnclosureLoop = true;
             }
         }
 
