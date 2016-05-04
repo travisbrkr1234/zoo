@@ -77,4 +77,14 @@ public class Validation {
         return onLoanInputValid;
     }
 
+    public static boolean validateIntInput(int intInput) {
+        Pattern intPattern = Pattern.compile("[0-9]+");
+        boolean intInputValid = false;
+
+        if (intPattern.matcher(String.valueOf(intInput)).matches()) {
+            intInputValid = true;
+        }
+        return intInputValid;
+    }
+
 }

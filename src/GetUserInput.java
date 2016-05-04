@@ -18,6 +18,24 @@ public class GetUserInput {
         return userInput;
     }
 
+    public static int getUserIntInput() {
+        Scanner scanner = new Scanner(System.in);
+        boolean stop = false;
+        int userIntInput = -1;
+
+        while (!stop) {
+            try {
+                userIntInput = scanner.nextInt();
+                stop = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a valid number");
+                scanner.nextLine();
+//                e.printStackTrace();
+            }
+        }
+        return userIntInput;
+    }
+
     // Gets the next integer provided by the user //
     // The reason this is separate, is due to the exception being thrown if the user does not provide an int
     public static int getAnimalAge() {

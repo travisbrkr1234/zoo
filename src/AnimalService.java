@@ -10,7 +10,7 @@ public class AnimalService {
 
         //TODO condense these loops where possible
         boolean stopNameLoop = false;
-//TODO        boolean stopOwnerNameLoop = false;
+        boolean stopKeeperNameLoop = false;
         boolean stopAgeLoop = false;
         boolean stopTypeLoop= false;
         boolean stopGenderLoop = false;
@@ -42,8 +42,8 @@ public class AnimalService {
         while (!stopTypeLoop) {
             System.out.println("Please enter an animal type ex. example-type");
             String animalType = GetUserInput.getUserInputString();
-            boolean validAnimalAge = Validation.validateAnimalType(animalType);
-            if (validAnimalAge) {
+            boolean validAnimalType = Validation.validateAnimalType(animalType);
+            if (validAnimalType) {
                 animal.setType(animalType);
                 stopTypeLoop = true;
             }
@@ -78,12 +78,12 @@ public class AnimalService {
         }
 
         while (!stopEnclosureLoop) {
-            System.out.println("Please enter the type of enclosure the animal is in: \n examples:\n +" +
+            System.out.println("Please enter the type of enclosure the animal is in: \n examples:\n" +
                     "pen \n cage \n window \n other");
 
             String enclosureUserInput = GetUserInput.getUserInputString();
             if (enclosureUserInput.equalsIgnoreCase("pen") || enclosureUserInput.equalsIgnoreCase("cage") || enclosureUserInput.equalsIgnoreCase("window") || enclosureUserInput.equalsIgnoreCase("other") ) {
-                animal.setEnclosure(enclosureUserInput);
+                animal.setEnclosure(enclosureUserInput.toLowerCase());
                 stopEnclosureLoop = true;
             }
         }
@@ -124,7 +124,12 @@ public class AnimalService {
     public static void printAnimalsToConsole() {
         JDBCAnimalDAO jdbcAnimalDAO = new JDBCAnimalDAO();
         jdbcAnimalDAO.getConnection();
-        jdbcAnimalDAO.select();
+        boolean animalsEmpty = jdbcAnimalDAO.checkForAnimals();
+        if (!animalsEmpty) {
+            jdbcAnimalDAO.select();
+        } else  {
+            System.out.println("There are no animals, please add one first");
+        }
         jdbcAnimalDAO.closeConnection();
     }
 
@@ -135,7 +140,7 @@ public class AnimalService {
 
         if (!animalsExist) {
             System.out.println("Please enter the id of an animal that you would like to remove");
-            int animalId = GetUserInput.getAnimalAge();
+            int animalId = GetUserInput.getUserIntInput();
             jdbcAnimalDAO.delete(animalId);
             jdbcAnimalDAO.closeConnection();
             System.out.println("Animal id: " + animalId + " removed");
@@ -143,5 +148,4 @@ public class AnimalService {
             System.out.println("There are no animals to remove");
         }
     }
-
 }

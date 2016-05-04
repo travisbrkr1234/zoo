@@ -5,7 +5,7 @@ public class Animal {
     private int animalNumber;
     private String type;
     private String name;
-    private String ownerName;
+    private String keeperName;
     private String gender;
     private AnimalHealthStatus health;
     private int age;
@@ -37,12 +37,12 @@ public class Animal {
         this.name = name;
     }
 
-    public String getOwnerName() {
-        return ownerName;
+    public String getKeeperName() {
+        return keeperName;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public void setKeeperName(String keeperName) {
+        this.keeperName = keeperName;
     }
 
     public String getGender() {
@@ -105,7 +105,7 @@ public class Animal {
                 .append(this.age)
                 .append(" | ")
                 .append("Owner name: ")
-                .append(this.ownerName)
+                .append(this.keeperName)
                 .append(" | ")
                 .append("Type: ")
                 .append(this.type)
