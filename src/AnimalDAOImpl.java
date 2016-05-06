@@ -1,18 +1,13 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by carlos.ochoa on 4/28/2016.
  */
-public class JDBCAnimalDAO {
+public class AnimalDAOImpl {
 
-    final String MY_SQL_INFO = "jdbc:mysql://localhost/zoo?user=#####&password=#####";
+    final String MY_SQL_INFO = "jdbc:mysql://localhost/zoo?user=root&password=password";
     Connection connection = null;
 
     public Connection getConnection() {
@@ -49,7 +44,7 @@ public class JDBCAnimalDAO {
     }
 
     public List<Animal> select() {
-        List<Animal> animalList = new LinkedList<Animal>();
+        List<Animal> animalList = new LinkedList<>();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM zoo.animal");
@@ -92,9 +87,31 @@ public class JDBCAnimalDAO {
         }
     }
 
+    public void closeConnection() {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (Exception e) {
+            //setup logging?
+        }
+    }
+
+    //Additional DB methods, not sure if it should exist here...
+    public void createDatabase() {
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("CREATE DATABASE zoo");
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean checkForAnimals() {
-        JDBCAnimalDAO jdbcAnimalDAO = new JDBCAnimalDAO();
-        jdbcAnimalDAO.getConnection();
+        AnimalDAOImpl animalDAOImpl = new AnimalDAOImpl();
+        animalDAOImpl.getConnection();
         boolean animalsExist = false;
 
         try {
@@ -110,13 +127,18 @@ public class JDBCAnimalDAO {
         return animalsExist;
     }
 
-    public void closeConnection() {
+    public boolean checkForAnimalTable() {
+        boolean tableExists = false;
         try {
-            if (connection != null) {
-                connection.close();
+            DatabaseMetaData databaseMetaData = connection.getMetaData();
+            ResultSet resultSet = databaseMetaData.getTables(null, null,"animal", new String[] {"TABLE"});
+            if (resultSet.next()) {
+                tableExists = true;
             }
-        } catch (Exception e) {
-            //setup logging?
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return tableExists;
     }
+
 }

@@ -125,34 +125,34 @@ public class AnimalService {
         }
 
         System.out.println("Saving animal to database");
-        JDBCAnimalDAO jdbcAnimalDAO = new JDBCAnimalDAO();
-        jdbcAnimalDAO.getConnection();
-        jdbcAnimalDAO.insert(animal); //
-        jdbcAnimalDAO.closeConnection();
+        AnimalDAOImpl animalDAOImpl = new AnimalDAOImpl();
+        animalDAOImpl.getConnection();
+        animalDAOImpl.insert(animal); //
+        animalDAOImpl.closeConnection();
     }
 
     public static void printAnimalsToConsole() {
-        JDBCAnimalDAO jdbcAnimalDAO = new JDBCAnimalDAO();
-        jdbcAnimalDAO.getConnection();
-        boolean animalsEmpty = jdbcAnimalDAO.checkForAnimals();
+        AnimalDAOImpl animalDAOImpl = new AnimalDAOImpl();
+        animalDAOImpl.getConnection();
+        boolean animalsEmpty = animalDAOImpl.checkForAnimals();
         if (!animalsEmpty) {
-            System.out.println(jdbcAnimalDAO.select());
+            System.out.println(animalDAOImpl.getAllAnimals());
         } else  {
             System.out.println("There are no animals, please add one first");
         }
-        jdbcAnimalDAO.closeConnection();
+        animalDAOImpl.closeConnection();
     }
 
     public static void removeAnimal() {
-        JDBCAnimalDAO jdbcAnimalDAO = new JDBCAnimalDAO();
-        jdbcAnimalDAO.getConnection();
-        boolean animalsExist = jdbcAnimalDAO.checkForAnimals();
+        AnimalDAOImpl animalDAOImpl = new AnimalDAOImpl();
+        animalDAOImpl.getConnection();
+        boolean animalsExist = animalDAOImpl.checkForAnimals();
 
         if (!animalsExist) {
             System.out.println("Please enter the id of an animal that you would like to remove");
             int animalId = GetUserInput.getUserIntInput();
-            jdbcAnimalDAO.delete(animalId);
-            jdbcAnimalDAO.closeConnection();
+            animalDAOImpl.deleteAnimal(animalId);
+            animalDAOImpl.closeConnection();
             System.out.println("Animal id: " + animalId + " removed");
         } else  {
             System.out.println("There are no animals to remove");
