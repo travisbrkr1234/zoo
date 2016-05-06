@@ -5,9 +5,9 @@ import java.util.List;
 /**
  * Created by carlos.ochoa on 4/28/2016.
  */
-public class AnimalDAOImpl {
+public class AnimalDAOImpl implements AnimalDAO {
 
-    final String MY_SQL_INFO = "jdbc:mysql://localhost/zoo?user=root&password=password";
+    final String MY_SQL_INFO = "jdbc:mysql://localhost/zoo?user=#####&password=#####";
     Connection connection = null;
 
     public Connection getConnection() {
@@ -23,27 +23,8 @@ public class AnimalDAOImpl {
         return connection;
     }
 
-    public void insert(Animal animal) {
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO zoo.animal (name, keeper_name, age, type, gender, health, enclosure, on_loan, loan_location) VALUES (?,?,?,?,?,?,?,?,?)");
-            preparedStatement.setString(1, animal.getName());
-            preparedStatement.setString(2, animal.getKeeperName());
-            preparedStatement.setString(3, String.valueOf(animal.getAge()));
-            preparedStatement.setString(4, animal.getType());
-            preparedStatement.setString(5, animal.getGender());
-            preparedStatement.setString(6, String.valueOf(animal.getHealth()));
-            preparedStatement.setString(7, animal.getEnclosure());
-            preparedStatement.setBoolean(8, animal.isOnLoan());
-            preparedStatement.setString(9, animal.getLoanLocation());
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public List<Animal> select() {
+    @Override
+    public List<Animal> getAllAnimals() {
         List<Animal> animalList = new LinkedList<>();
         try {
             Statement statement = connection.createStatement();
@@ -74,8 +55,28 @@ public class AnimalDAOImpl {
         return animalList;
     }
 
-    public void delete(int animalId) {
+    public void insert(Animal animal) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO zoo.animal (name, keeper_name, age, type, gender, health, enclosure, on_loan, loan_location) VALUES (?,?,?,?,?,?,?,?,?)");
+            preparedStatement.setString(1, animal.getName());
+            preparedStatement.setString(2, animal.getKeeperName());
+            preparedStatement.setString(3, String.valueOf(animal.getAge()));
+            preparedStatement.setString(4, animal.getType());
+            preparedStatement.setString(5, animal.getGender());
+            preparedStatement.setString(6, String.valueOf(animal.getHealth()));
+            preparedStatement.setString(7, animal.getEnclosure());
+            preparedStatement.setBoolean(8, animal.isOnLoan());
+            preparedStatement.setString(9, animal.getLoanLocation());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+    }
+
+    @Override
+    public void deleteAnimal(int animalId) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM zoo.animal WHERE id = ?");
             preparedStatement.setInt(1, animalId);
@@ -86,6 +87,13 @@ public class AnimalDAOImpl {
             e.printStackTrace();
         }
     }
+
+//    @Override
+//    public Animal getAnimalsBy(int animalId) {
+//        //get animal by name
+//        //get animal by type
+//        return null;
+//    }
 
     public void closeConnection() {
         try {
@@ -98,6 +106,7 @@ public class AnimalDAOImpl {
     }
 
     //Additional DB methods, not sure if it should exist here...
+    @Override
     public void createDatabase() {
 
         try {
@@ -109,6 +118,7 @@ public class AnimalDAOImpl {
         }
     }
 
+    @Override
     public boolean checkForAnimals() {
         AnimalDAOImpl animalDAOImpl = new AnimalDAOImpl();
         animalDAOImpl.getConnection();
@@ -127,6 +137,7 @@ public class AnimalDAOImpl {
         return animalsExist;
     }
 
+    @Override
     public boolean checkForAnimalTable() {
         boolean tableExists = false;
         try {
@@ -140,5 +151,6 @@ public class AnimalDAOImpl {
         }
         return tableExists;
     }
+
 
 }
