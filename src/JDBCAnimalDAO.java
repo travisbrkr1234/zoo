@@ -59,7 +59,7 @@ public class JDBCAnimalDAO {
                 animal = new Animal();
                 animal.setAnimalNumber(resultSet.getInt("id"));
                 animal.setName(resultSet.getString("name"));
-                animal.setName(resultSet.getString("keeper_name"));
+                animal.setKeeperName(resultSet.getString("keeper_name"));
                 animal.setAge(resultSet.getInt("age"));
                 animal.setType(resultSet.getString("type"));
                 animal.setGender(resultSet.getString("gender"));
@@ -76,7 +76,6 @@ public class JDBCAnimalDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(animalList);
         return animalList;
     }
 

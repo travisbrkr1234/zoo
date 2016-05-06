@@ -136,7 +136,7 @@ public class AnimalService {
         jdbcAnimalDAO.getConnection();
         boolean animalsEmpty = jdbcAnimalDAO.checkForAnimals();
         if (!animalsEmpty) {
-            jdbcAnimalDAO.select();
+            System.out.println(jdbcAnimalDAO.select());
         } else  {
             System.out.println("There are no animals, please add one first");
         }
