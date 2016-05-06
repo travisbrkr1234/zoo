@@ -22,6 +22,21 @@ public class Validation {
         return animalNameIsValid;
     }
 
+    public static boolean validateKeeperName(String keeperName) {
+        //run validation on customer input
+        //return true if name is valid
+        boolean animalNameIsValid = false;
+        final String regexNamePattern = "\\b[a-zA-Z]+\\b";
+        Pattern namePattern = Pattern.compile(regexNamePattern);
+
+        Matcher matcher = namePattern.matcher(keeperName);
+
+        if (matcher.find()) {
+            animalNameIsValid = true;
+        }
+        return animalNameIsValid;
+    }
+
     public static boolean validateAnimalAge(int animalAge) {
         //run validation on customer input
         //return true if age is valid and is or is-less than 4 numbers
@@ -37,7 +52,7 @@ public class Validation {
     public static boolean validateAnimalGender(String animalGender) {
         boolean animalGenderIsValid = false;
 
-        if (animalGender.equals("m") || animalGender.equals("M") || animalGender.equals("f") || animalGender.equals("F")) {
+        if (animalGender.equalsIgnoreCase("m") || animalGender.equalsIgnoreCase("f")) {
             animalGenderIsValid = true;
         }
         return animalGenderIsValid;

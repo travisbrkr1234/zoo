@@ -29,6 +29,16 @@ public class AnimalService {
             }
         }
 
+        while (!stopKeeperNameLoop) {
+            System.out.println("Please enter the keepers name: ");
+            String keeperName = GetUserInput.getUserInputString();
+            boolean validKeeperName = Validation.validateKeeperName(keeperName);
+            if (validKeeperName) {
+                animal.setKeeperName(FormattingUtils.capitalizeFirstLetter(keeperName));
+                stopKeeperNameLoop = true;
+            }
+        }
+
         while (!stopAgeLoop) {
             System.out.println("Please enter an animal age ex... 41");
             int animalAge = GetUserInput.getAnimalAge();
@@ -55,10 +65,10 @@ public class AnimalService {
             boolean validAnimalGender = Validation.validateAnimalGender(animalGender);
             //TODO validation in validation class, not here
             if (validAnimalGender) {
-                if (animalGender.equals("m") || animalGender.equals("M")) {
+                if (animalGender.equalsIgnoreCase("m")) {
                     animal.setGender("Male");
                 }
-                if (animalGender.equals("f") || animalGender.equals("F")) {
+                if (animalGender.equalsIgnoreCase("f")) {
                     animal.setGender("Female");
                 }
                 stopGenderLoop = true;
@@ -79,7 +89,7 @@ public class AnimalService {
 
         while (!stopEnclosureLoop) {
             System.out.println("Please enter the type of enclosure the animal is in: \n examples:\n" +
-                    "pen \n cage \n window \n other");
+                    " pen \n cage \n window \n other");
 
             String enclosureUserInput = GetUserInput.getUserInputString();
             if (enclosureUserInput.equalsIgnoreCase("pen") || enclosureUserInput.equalsIgnoreCase("cage") || enclosureUserInput.equalsIgnoreCase("window") || enclosureUserInput.equalsIgnoreCase("other") ) {
