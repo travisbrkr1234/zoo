@@ -137,23 +137,6 @@ public class AnimalDAOImpl implements AnimalDAO {
     }
 
     @Override
-    public boolean checkForAnimalById(int animalId) {
-        boolean animalExist = false;
-
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM zoo.animal WHERE id = ?");
-            if (!resultSet.isBeforeFirst()) {
-                animalExist = true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return animalExist;
-    }
-
-    @Override
     public boolean checkForAnimalTable() {
         boolean tableExists = false;
         try {
