@@ -23,7 +23,6 @@ public class Menu {
                 .append("----Type e, exit, q, or quit to leave program----\n");
         System.out.println(zooMenu);
     }
-
     // Get the choice from the user and invoke the corresponding method
     public static void runUserChoice() {
         Scanner scanner = new Scanner(System.in);

@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class AnimalDAOImpl implements AnimalDAO {
 
-    final String MY_SQL_INFO = "jdbc:mysql://localhost/zoo?user=#####&password=#####";
+    final String MY_SQL_INFO = "jdbc:mysql://localhost/zoo?user=root&password=password";
     Connection connection = null;
 
     public Connection getConnection() {
@@ -26,6 +26,7 @@ public class AnimalDAOImpl implements AnimalDAO {
     @Override
     public List<Animal> getAllAnimals() {
         List<Animal> animalList = new LinkedList<>();
+
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM zoo.animal");
@@ -120,8 +121,6 @@ public class AnimalDAOImpl implements AnimalDAO {
 
     @Override
     public boolean checkForAnimals() {
-        AnimalDAOImpl animalDAOImpl = new AnimalDAOImpl();
-        animalDAOImpl.getConnection();
         boolean animalsExist = false;
 
         try {
@@ -135,6 +134,23 @@ public class AnimalDAOImpl implements AnimalDAO {
         }
 
         return animalsExist;
+    }
+
+    @Override
+    public boolean checkForAnimalById(int animalId) {
+        boolean animalExist = false;
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM zoo.animal WHERE id = ?");
+            if (!resultSet.isBeforeFirst()) {
+                animalExist = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return animalExist;
     }
 
     @Override

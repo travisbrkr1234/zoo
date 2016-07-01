@@ -151,6 +151,7 @@ public class AnimalService {
         if (!animalsExist) {
             System.out.println("Please enter the id of an animal that you would like to remove");
             int animalId = GetUserInput.getUserIntInput();
+
             animalDAOImpl.deleteAnimal(animalId);
             animalDAOImpl.closeConnection();
             System.out.println("Animal id: " + animalId + " removed");
